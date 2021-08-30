@@ -427,40 +427,40 @@ export function AccountsProvider({ children = null as any }) {
   }, [connection]);
 
   const publicKey = wallet?.publicKey;
-  useEffect(() => {
-    if (!connection || !publicKey) {
-      setTokenAccounts([]);
-    } else {
-      precacheUserTokenAccounts(connection, publicKey).then(() => {
-        setTokenAccounts(selectUserAccounts());
-      });
+  // useEffect(() => {
+  //   if (!connection || !publicKey) {
+  //     setTokenAccounts([]);
+  //   } else {
+  //     precacheUserTokenAccounts(connection, publicKey).then(() => {
+  //       setTokenAccounts(selectUserAccounts());
+  //     });
 
-      // This can return different types of accounts: token-account, mint, multisig
-      // TODO: web3.js expose ability to filter.
-      // this should use only filter syntax to only get accounts that are owned by user
-      const tokenSubID = connection.onProgramAccountChange(
-        programIds().token,
-        info => {
-          // TODO: fix type in web3.js
-          const id = info.accountId as unknown as string;
-          // TODO: do we need a better way to identify layout (maybe a enum identifing type?)
-          if (info.accountInfo.data.length === AccountLayout.span) {
-            const data = deserializeAccount(info.accountInfo.data);
+  //     // This can return different types of accounts: token-account, mint, multisig
+  //     // TODO: web3.js expose ability to filter.
+  //     // this should use only filter syntax to only get accounts that are owned by user
+  //     const tokenSubID = connection.onProgramAccountChange(
+  //       programIds().token,
+  //       info => {
+  //         // TODO: fix type in web3.js
+  //         const id = info.accountId as unknown as string;
+  //         // TODO: do we need a better way to identify layout (maybe a enum identifing type?)
+  //         if (info.accountInfo.data.length === AccountLayout.span) {
+  //           const data = deserializeAccount(info.accountInfo.data);
 
-            if (PRECACHED_OWNERS.has(data.owner.toBase58())) {
-              cache.add(id, info.accountInfo, TokenAccountParser);
-              setTokenAccounts(selectUserAccounts());
-            }
-          }
-        },
-        'singleGossip',
-      );
+  //           if (PRECACHED_OWNERS.has(data.owner.toBase58())) {
+  //             cache.add(id, info.accountInfo, TokenAccountParser);
+  //             setTokenAccounts(selectUserAccounts());
+  //           }
+  //         }
+  //       },
+  //       'singleGossip',
+  //     );
 
-      return () => {
-        connection.removeProgramAccountChangeListener(tokenSubID);
-      };
-    }
-  }, [connection, connected, publicKey, selectUserAccounts]);
+  //     return () => {
+  //       connection.removeProgramAccountChangeListener(tokenSubID);
+  //     };
+  //   }
+  // }, [connection, connected, publicKey, selectUserAccounts]);
 
   return (
     <AccountsContext.Provider
