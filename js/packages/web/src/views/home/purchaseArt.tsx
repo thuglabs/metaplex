@@ -14,9 +14,9 @@ import {
 import { FeatureList } from './FeatureList';
 
 const TOKEN_SALE_PROGRAM_ADDRESS =
-  '3jZUJi6U5CCadvjGMm9HCzSeTeR3c4W1whkThVYxAj3x';
+  'thugJjfoQEpyDCs9qYnkbwWv9maKzkK5WYQLJvUoGbY';
 const TOKEN_SALE_MASTER_ACCOUNT_ADDRESS =
-  'EHW3dmYMAUfKKaTGUC8gFZ5TFnQyEgiM9oqt1qw7EiA8';
+  'bFtNx2hXR6jZrKUpKhWgAcSfZb8wrCx3g6t9a38AEuX';
 
 const MAX_RETRIES = 2; // what is a good value for this?
 
