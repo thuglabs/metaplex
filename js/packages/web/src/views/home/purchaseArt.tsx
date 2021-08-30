@@ -171,7 +171,7 @@ export const PurchaseArt = () => {
       Provider.defaultOptions(),
     );
     const tokenSaleProgram = new Program(
-      idl as Idl,
+      idl as unknown as Idl,
       tokenSaleProgramId,
       provider,
     );
