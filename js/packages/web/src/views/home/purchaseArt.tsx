@@ -18,7 +18,7 @@ const TOKEN_SALE_PROGRAM_ADDRESS =
 const TOKEN_SALE_MASTER_ACCOUNT_ADDRESS =
   'EHW3dmYMAUfKKaTGUC8gFZ5TFnQyEgiM9oqt1qw7EiA8';
 
-const MAX_RETRIES = 5; // what is a good value for this?
+const MAX_RETRIES = 2; // what is a good value for this?
 
 const { Title } = Typography;
 
@@ -103,9 +103,9 @@ const updateTokenSane = async (
           );
         }
         // set price
-        if (account.sold.toNumber() >= 2222) {
-          setCurrentPriceFn(3);
-        } else if (account.sold.toNumber() >= 1111) {
+        if (account.sold.toNumber() <= 310) {
+          setCurrentPriceFn(1);
+        } else if (account.sold.toNumber() <= 1421) {
           setCurrentPriceFn(2);
         }
       }
@@ -123,6 +123,8 @@ const saleStartUTCTime = Date.UTC(2021, 7, 30, 14, 0, 0);
 
 const saleStartDate = new Date(saleStartUTCTime);
 
+const alreadySoldNumber = 801;
+
 export const PurchaseArt = () => {
   const { wallet, connected } = useWallet();
   const connection = useConnection();
@@ -131,7 +133,7 @@ export const PurchaseArt = () => {
     useState<MasterAccount | undefined | null>(undefined);
   const [progressValue, setProgressValue] = useState<number | null>(null);
   const [amountRemaining, setAmountRemaining] = useState<number>(3333); // TODO: whats a good default?
-  const [currentPrice, setCurrentPrice] = useState<number>(1);
+  const [currentPrice, setCurrentPrice] = useState<number>(3);
   const [retriedTimes, setRetriedTimes] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(false);
   const [ifDealMade, setDealMade] = useState(false);
@@ -435,11 +437,11 @@ export const PurchaseArt = () => {
                 <div className="only-left-text">
                   Only <span className="highlight">{amountRemaining}</span> of{' '}
                   <span className="highlight">
-                    {account.allocated.toNumber()}
+                    {account.allocated.toNumber()+alreadySoldNumber}
                   </span>{' '}
                   remaining
                 </div>
-                <Progress percent={progressValue} />
+                <Progress percent={progressValue+22} />
               </>
             )}
 
